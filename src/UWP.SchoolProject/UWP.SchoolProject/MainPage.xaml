@@ -9,6 +9,75 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0">
+            <Button x:Name="HambugerButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="36"
+                    Content="&#xE700;"
+                    Click="ToggleMenu"/>
+
+            <Button x:Name="BackButton"
+                    RelativePanel.RightOf="HambugerButton"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="36"
+                    Content="&#xE72B;"
+                    Visibility="Collapsed"
+                    Click="BackEvent"/>
+
+            <TextBlock x:Name="TitleTextBlock"
+                       Text="{Binding ElementName=MenuItems, Path=SelectedItem.ToString}"
+                       RelativePanel.RightOf="BackButton"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Margin="20 5 0 0"/>
+
+          
+        </RelativePanel>
+
+        <SplitView Grid.Row="1"
+                   x:Name="MenuSplitView"
+                   DisplayMode="CompactOverlay"
+                   OpenPaneLength="220"
+                   CompactPaneLength="56"
+                   >
+            <SplitView.Pane>
+                <ListBox x:Name="MenuItems"
+                         SelectionMode="Single"
+                         SelectionChanged="MenuChanged"
+                         PointerExited="CloseMenu"
+                         PointerEntered="OpenMenu">
+                    <ListBoxItem x:Name="MainMenuItem">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="36"
+                                       Text="&#xE80F;"/>
+                            <TextBlock FontSize="24"
+                                       Margin="20 0 0 0"
+                                       Text="Home"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="CameraMenuItem">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="36"
+                                       Text="&#xE722;"/>
+                            <TextBlock FontSize="24"
+                                       Margin="20 0 0 0"
+                                       Text="Take Picture"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame x:Name="MainFrame"/>
+            </SplitView.Content>
+        </SplitView>
 
     </Grid>
+   
 </Page>

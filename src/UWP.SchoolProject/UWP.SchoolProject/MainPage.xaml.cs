@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.SchoolProject.Views;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,52 @@ namespace UWP.SchoolProject
         public MainPage()
         {
             this.InitializeComponent();
+            MainFrame.Navigate(typeof(HomePage));
         }
+
+        public void ToggleMenu(object sender, RoutedEventArgs e)
+        {
+            MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
+        }
+
+        public void BackEvent(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                MainFrame.GoBack();
+                TitleTextBlock.Text = "Main";
+                MainMenuItem.IsSelected = true;
+            }
+        }
+        private void MenuChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MainMenuItem.IsSelected)
+            {
+                BackButton.Visibility = Visibility.Collapsed;
+                MainFrame.Navigate(typeof(HomePage));
+                TitleTextBlock.Text = "Main";
+            }
+            if (CameraMenuItem.IsSelected)
+            {
+                BackButton.Visibility = Visibility.Visible;
+                MainFrame.Navigate(typeof(CameraView));
+                TitleTextBlock.Text = "Food";
+            }
+        }
+
+        private void CloseMenu(object sender, PointerRoutedEventArgs e)
+        {
+            MenuSplitView.IsPaneOpen = false;
+        }
+
+        private void OpenMenu(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.KeyModifiers == Windows.System.VirtualKeyModifiers.Control)
+            {
+                MenuSplitView.IsPaneOpen = true;
+            }
+        }
+
+    
     }
 }
