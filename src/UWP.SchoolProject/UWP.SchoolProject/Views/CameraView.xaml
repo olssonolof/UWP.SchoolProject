@@ -20,6 +20,7 @@
 
         
         <Button Click="TakePhoto" 
+                x:Name="PhotoButton"
                 Margin="10"
                 BorderBrush="DarkBlue"
                 BorderThickness="5"
@@ -37,7 +38,8 @@
                        Text="&#xE722;"/>
         </Button>
         
-        <Image x:Name="imageControl" Margin="10"
+        <Image Source="{x:Bind ViewModel.Image, Mode=OneWay}"
+               Margin="10"
                Grid.Column="0" 
                Grid.ColumnSpan="2" 
                HorizontalAlignment="Center" 
@@ -53,7 +55,7 @@
                 Width="500"
                 Height="200">
             <TextBlock Margin="10" 
-                       x:Name="ImageOutput">
+                       Text="{x:Bind ViewModel.Description, Mode=OneWay}">
                 
             </TextBlock>
             
