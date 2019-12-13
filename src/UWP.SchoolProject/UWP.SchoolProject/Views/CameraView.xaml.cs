@@ -46,6 +46,27 @@ namespace UWP.SchoolProject.Views
             PhotoButton.IsEnabled = true;
         }
 
-       
+        private async void OpenPhoto_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            OpenPhoto.IsEnabled = false;
+            App.Key = App.Key ?? await ViewModel.OpenKeyWindow();
+            if (string.IsNullOrWhiteSpace(App.Key))
+            {
+                OpenPhoto.IsEnabled = true;
+                return;
+            }
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+           StorageFile file = await picker.PickSingleFileAsync();
+
+            await ViewModel.GetImageInfo(file);
+            OpenPhoto.IsEnabled = true;
+
+        }
     }
 }

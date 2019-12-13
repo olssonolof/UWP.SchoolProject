@@ -5,6 +5,7 @@
     xmlns:local="using:UWP.SchoolProject.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:UWP.SchoolProject.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -18,26 +19,43 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        
-        <Button Click="TakePhoto" 
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.RowSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Click="TakePhoto" 
                 x:Name="PhotoButton"
                 Margin="10"
                 BorderBrush="DarkBlue"
                 BorderThickness="5"
                 CornerRadius="10"
                 Width="120"
-                Grid.Row="0" Grid.Column="0" 
-                Grid.RowSpan="2" 
-                Grid.ColumnSpan="2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom">
-            
-            <TextBlock FontFamily="Segoe MDL2 Assets"
+
+                <TextBlock FontFamily="Segoe MDL2 Assets"
                        Padding="5"
                        FontSize="44"
                        Text="&#xE722;"/>
-        </Button>
-        
+            </Button>
+            <Button Click="OpenPhoto_ClickAsync" 
+                x:Name="OpenPhoto"
+                Margin="10"
+                BorderBrush="DarkBlue"
+                BorderThickness="5"
+                CornerRadius="10"
+                Width="120"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom">
+
+                <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Padding="5"
+                       FontSize="44"
+                       Text="&#xE7AC;"/>
+            </Button>
+        </StackPanel>
         <Image Source="{x:Bind ViewModel.Image, Mode=OneWay}"
                Margin="10"
                Grid.Column="0" 
@@ -54,12 +72,17 @@
                 CornerRadius="5"
                 Width="500"
                 Height="200">
-            <TextBlock Margin="10" 
-                       Text="{x:Bind ViewModel.Description, Mode=OneWay}">
-                
-            </TextBlock>
-            
+            <ItemsControl ItemsSource="{x:Bind ViewModel.ApiAnswer, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="viewModel:AiAnswer">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind Description, Mode=OneWay}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
         </Border>
-        
+
     </Grid>
 </Page>

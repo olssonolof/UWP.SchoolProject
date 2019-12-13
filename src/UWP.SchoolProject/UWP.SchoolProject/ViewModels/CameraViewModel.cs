@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -11,6 +10,8 @@ using System;
 using Windows.UI.Xaml.Media.Imaging;
 using System.IO;
 using Windows.UI.Xaml.Controls;
+using System.Collections.ObjectModel;
+using ImageAnalyze.Models;
 
 namespace UWP.SchoolProject.ViewModels
 {
@@ -27,6 +28,11 @@ namespace UWP.SchoolProject.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+
+        public ObservableCollection<AiAnswer> ApiAnswer { get; set; }
+
+
 
         private string description;
 
@@ -48,21 +54,35 @@ namespace UWP.SchoolProject.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
-
-        public async Task GetImageInfo()
+        public CameraViewModel()
         {
+            ApiAnswer = new ObservableCollection<AiAnswer>();
+        }
+
+
+        public async Task GetImageInfo(StorageFile picFromDisc = null)
+        {
+
             App.Key = App.Key ?? await OpenKeyWindow();
             if (string.IsNullOrWhiteSpace(App.Key))
             {
                 return;
             }
-            CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            captureUI.PhotoSettings.AllowCropping = false;
+            StorageFile photo;
 
-            StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            if (picFromDisc == null)
+            {
+                CameraCaptureUI captureUI = new CameraCaptureUI();
+                captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+                captureUI.PhotoSettings.AllowCropping = false;
+                photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            }
+            else
+            {
+                photo = picFromDisc;
+            }
+
+
 
             if (photo == null)
             {
@@ -92,15 +112,22 @@ namespace UWP.SchoolProject.ViewModels
 
             var response = await ImageAnalyze.GetImageInfo.GetInfo(byteArray: byteArray, key: App.Key);
 
+
+            ApiAnswer.Clear();
             foreach (var item in response.Description.Captions)
             {
-                this.Description += item.Text;
+                var answer = new AiAnswer
+                {
+                    Description =
+                    ($"Description: {item.Text} \nConfidence: {item.Confidence}")
+                };
+                ApiAnswer.Add(answer);
 
             }
 
         }
 
-        private async Task<string> OpenKeyWindow()
+        public async Task<string> OpenKeyWindow()
         {
             TextBox inputTextBox = new TextBox();
             inputTextBox.AcceptsReturn = false;
@@ -126,6 +153,26 @@ namespace UWP.SchoolProject.ViewModels
                 BinaryReader binaryReader = new BinaryReader(stream);
                 return binaryReader.ReadBytes((int)stream.Length);
             }
+        }
+    }
+    public class AiAnswer : INotifyPropertyChanged
+    {
+        private string description;
+        public string Description
+        {
+            get => description;
+            set
+            {
+                description = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
