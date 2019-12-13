@@ -65,5 +65,10 @@ namespace UWP.SchoolProject.Views
             OpenPhoto.IsEnabled = true;
 
         }
+
+        private async void SaveImage(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.SaveImageToDisc();
+        }
     }
 }

@@ -8,7 +8,12 @@
     xmlns:viewModel="using:UWP.SchoolProject.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BorderBrush" Value="#FF7E7E7E"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -28,8 +33,7 @@
             <Button Click="TakePhoto" 
                 x:Name="PhotoButton"
                 Margin="10"
-                BorderBrush="DarkBlue"
-                BorderThickness="5"
+                BorderThickness="1"
                 CornerRadius="10"
                 Width="120"
                 HorizontalAlignment="Center" 
@@ -43,8 +47,7 @@
             <Button Click="OpenPhoto_ClickAsync" 
                 x:Name="OpenPhoto"
                 Margin="10"
-                BorderBrush="DarkBlue"
-                BorderThickness="5"
+                BorderThickness="1"
                 CornerRadius="10"
                 Width="120"
                 HorizontalAlignment="Center" 
@@ -56,6 +59,24 @@
                        Text="&#xE7AC;"/>
             </Button>
         </StackPanel>
+
+        <Button Click="SaveImage"
+                Margin="10"
+                Grid.Column="1"
+                Grid.Row="1"
+                BorderThickness="1"
+                CornerRadius="10"
+                Width="120"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                IsEnabled="{x:Bind ViewModel.ImageExist, Mode=OneWay}"
+                >
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Padding="5"
+                       FontSize="44"
+                       Text="&#xE74E;"/>
+
+        </Button>
         <Image Source="{x:Bind ViewModel.Image, Mode=OneWay}"
                Margin="10"
                Grid.Column="0" 
@@ -67,16 +88,18 @@
                 Grid.ColumnSpan="2" 
                 HorizontalAlignment="Center" 
                 Grid.Column="0"
-                BorderBrush="DarkBlue"
-                BorderThickness="5"
+                BorderBrush="#FF7E7E7E"
+                BorderThickness="1"
                 CornerRadius="5"
                 Width="500"
                 Height="200">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.ApiAnswer, Mode=OneWay}">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.ApiAnswer, Mode=OneWay}" 
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">                
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:AiAnswer">
                         <StackPanel>
-                            <TextBlock Text="{x:Bind Description, Mode=OneWay}"></TextBlock>
+                            <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="22"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
