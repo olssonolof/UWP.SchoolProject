@@ -11,16 +11,21 @@ namespace ImageAnalyze
 {
     public class GetImageInfo
     {
-        private const string Key = "";
 
 
-        public static async Task<ImageInfo> GetInfo(string path = @"", byte[] byteArray = null)
+        public static async Task<ImageInfo> GetInfo(string path = null, byte[] byteArray = null, string key=null)
         {
+            if (key== null)
+            {
+                throw new Exception("No ApiKey provided.");
+            }
+
+
             byte[] byteData;
             var contentString = new ImageInfo();
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://northeurope.api.cognitive.microsoft.com");
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Key);
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
 
 
             HttpResponseMessage response = new HttpResponseMessage();

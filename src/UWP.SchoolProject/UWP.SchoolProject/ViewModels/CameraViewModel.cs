@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System;
 using Windows.UI.Xaml.Media.Imaging;
 using System.IO;
+using Windows.UI.Xaml.Controls;
 
 namespace UWP.SchoolProject.ViewModels
 {
@@ -50,14 +51,13 @@ namespace UWP.SchoolProject.ViewModels
 
 
 
-
-
-
-
-
-
         public async Task GetImageInfo()
         {
+            App.Key = App.Key ?? await OpenKeyWindow();
+            if (string.IsNullOrWhiteSpace(App.Key))
+            {
+                return;
+            }
             CameraCaptureUI captureUI = new CameraCaptureUI();
             captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
             captureUI.PhotoSettings.AllowCropping = false;
@@ -90,7 +90,7 @@ namespace UWP.SchoolProject.ViewModels
 
             var byteArray = await GetImageAsByteArray(photo);
 
-            var response = await ImageAnalyze.GetImageInfo.GetInfo(byteArray: byteArray);
+            var response = await ImageAnalyze.GetImageInfo.GetInfo(byteArray: byteArray, key: App.Key);
 
             foreach (var item in response.Description.Captions)
             {
@@ -98,6 +98,23 @@ namespace UWP.SchoolProject.ViewModels
 
             }
 
+        }
+
+        private async Task<string> OpenKeyWindow()
+        {
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.AcceptsReturn = false;
+            inputTextBox.Height = 32;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = inputTextBox;
+            dialog.Title = "You need an Api Key for Microsoft Cognitive Services to run this app.";
+            dialog.IsSecondaryButtonEnabled = true;
+            dialog.PrimaryButtonText = "Ok";
+            dialog.SecondaryButtonText = "Cancel";
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                return inputTextBox.Text;
+            else
+                return "";
         }
 
         public async Task<byte[]> GetImageAsByteArray(StorageFile photo)
