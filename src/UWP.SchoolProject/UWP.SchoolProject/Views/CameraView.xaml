@@ -13,7 +13,7 @@
             <Setter Property="BorderBrush" Value="#FF7E7E7E"/>
         </Style>
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -93,18 +93,20 @@
                 CornerRadius="5"
                 Width="500"
                 Height="200">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.ApiAnswer, Mode=OneWay}" 
+            <Grid>
+                <ProgressRing Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="DeepSkyBlue" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+                <ItemsControl ItemsSource="{x:Bind ViewModel.ApiAnswer, Mode=OneWay}" 
                           HorizontalAlignment="Center"
-                          VerticalAlignment="Center">                
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="viewModel:AiAnswer">
-                        <StackPanel>
-                            <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="22"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
+                          VerticalAlignment="Center">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="viewModel:AiAnswer">
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="20" TextWrapping="WrapWholeWords"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
         </Border>
 
     </Grid>

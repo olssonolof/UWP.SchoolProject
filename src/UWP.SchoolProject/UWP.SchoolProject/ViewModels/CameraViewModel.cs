@@ -33,6 +33,18 @@ namespace UWP.SchoolProject.ViewModels
             }
         }
 
+        private bool isLoading;
+
+        public bool IsLoading
+        {
+            get => isLoading;
+            set
+            {
+                isLoading = value;
+                NotifyPropertyChanged();
+            }
+        }
+
 
         public ImageSource Image
         {
@@ -134,14 +146,15 @@ namespace UWP.SchoolProject.ViewModels
 
             this.Image = bitmapSource;
 
-
+            ApiAnswer.Clear();
+            this.IsLoading = true;
 
             var byteArray = await GetImageAsByteArray(ImageFile);
 
             var response = await ImageAnalyze.GetImageInfo.GetInfo(byteArray: byteArray, key: App.Key);
 
 
-            ApiAnswer.Clear();
+            this.IsLoading = false;
             foreach (var item in response.Description.Captions)
             {
                 var answer = new AiAnswer
@@ -152,7 +165,7 @@ namespace UWP.SchoolProject.ViewModels
                 ApiAnswer.Add(answer);
 
             }
-
+            
         }
 
         public async Task SaveImageToDisc()
@@ -267,6 +280,6 @@ namespace UWP.SchoolProject.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
     }
 }
