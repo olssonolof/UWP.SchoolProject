@@ -17,7 +17,7 @@ using Windows.Storage.Pickers;
 
 namespace UWP.SchoolProject.ViewModels
 {
-    class CameraViewModel : INotifyPropertyChanged
+    class CameraViewModel : ViewModelBase
     {
         private ImageSource image;
 
@@ -86,12 +86,8 @@ namespace UWP.SchoolProject.ViewModels
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    
 
         public CameraViewModel()
         {

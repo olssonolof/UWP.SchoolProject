@@ -21,57 +21,72 @@ namespace UWP.SchoolProject
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
-            MainFrame.Navigate(typeof(HomePage));
         }
 
         public void ToggleMenu(object sender, RoutedEventArgs e)
         {
-            MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
+         //   MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
         }
 
         public void BackEvent(object sender, RoutedEventArgs e)
         {
             if (MainFrame.CanGoBack)
             {
-                MainFrame.GoBack();
-                TitleTextBlock.Text = "Main";
-                MainMenuItem.IsSelected = true;
-            }
-        }
-        private void MenuChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MainMenuItem.IsSelected)
-            {
-                BackButton.Visibility = Visibility.Collapsed;
-                MainFrame.Navigate(typeof(HomePage));
-                TitleTextBlock.Text = "Main";
-            }
-            if (CameraMenuItem.IsSelected)
-            {
-                BackButton.Visibility = Visibility.Visible;
-                MainFrame.Navigate(typeof(CameraView));
-                TitleTextBlock.Text = "Food";
+                MainFrame.GoBack();        
             }
         }
 
-        private void CloseMenu(object sender, PointerRoutedEventArgs e)
+        
+
+   
+
+        private void Navigation_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            MenuSplitView.IsPaneOpen = false;
+            On_BackRequested();
+
         }
 
-        private void OpenMenu(object sender, PointerRoutedEventArgs e)
+        private void Navigation_Loaded(object sender, RoutedEventArgs e)
         {
-            if (e.KeyModifiers == Windows.System.VirtualKeyModifiers.Control)
+            MainFrame.Navigate(typeof(HomePage));
+        }
+
+        private bool On_BackRequested()
+        {
+            if (this.MainFrame.CanGoBack)
             {
-                MenuSplitView.IsPaneOpen = true;
+                this.MainFrame.GoBack();
+             
+                return true;
             }
+            return false;
         }
 
-    
+        private void Navigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if ((Navigation.SelectedItem is NavigationViewItem item) && Navigation != null)
+            {
+
+                switch (item.Tag)
+                {
+                    case "Home":
+                        MainFrame.Navigate(typeof(HomePage));
+                        break;
+
+                    case "Camera":
+                        MainFrame.Navigate(typeof(CameraView));
+                        break;
+
+                }
+            }
+            Navigation.IsBackEnabled = true;
+        }
     }
 }
