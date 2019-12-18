@@ -13,9 +13,9 @@ namespace ImageAnalyze
     {
 
 
-        public static async Task<ImageInfo> GetInfo(string path = null, byte[] byteArray = null, string key=null)
+        public static async Task<ImageInfo> GetInfo(string path = null, byte[] byteArray = null, string key = null)
         {
-            if (key== null)
+            if (key == null)
             {
                 throw new Exception("No ApiKey provided.");
             }
@@ -35,7 +35,7 @@ namespace ImageAnalyze
             }
             else
             {
-               byteData = byteArray;
+                byteData = byteArray;
             }
             using (ByteArrayContent content = new ByteArrayContent(byteData))
             {

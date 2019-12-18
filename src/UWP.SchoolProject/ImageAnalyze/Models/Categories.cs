@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ImageAnalyze.Models
+﻿namespace ImageAnalyze.Models
 {
     public class Categories
     {

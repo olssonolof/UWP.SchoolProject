@@ -1,24 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using UWP.SchoolProject.ViewModels;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Media.Capture;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.Graphics.Imaging;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Threading.Tasks;
-using UWP.SchoolProject.ViewModels;
 
 
 namespace UWP.SchoolProject.Views
@@ -37,7 +21,7 @@ namespace UWP.SchoolProject.Views
         public async void TakePhoto(object sender, RoutedEventArgs e)
         {
             PhotoButton.IsEnabled = false;
-            var takePicture =  ViewModel.GetImageInfo();
+            var takePicture = ViewModel.GetImageInfo();
 
             await takePicture;
             PhotoButton.IsEnabled = true;
@@ -59,7 +43,7 @@ namespace UWP.SchoolProject.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-           StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
             await ViewModel.GetImageInfo(file);
             OpenPhoto.IsEnabled = true;

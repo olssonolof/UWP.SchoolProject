@@ -1,19 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.Graphics.Imaging;
-using Windows.UI.Xaml.Media;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System;
-using Windows.UI.Xaml.Media.Imaging;
-using System.IO;
-using Windows.UI.Xaml.Controls;
-using System.Collections.ObjectModel;
-using ImageAnalyze.Models;
-using System.Collections.Generic;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWP.SchoolProject.ViewModels
 {
@@ -87,12 +86,11 @@ namespace UWP.SchoolProject.ViewModels
 
 
 
-    
-
         public CameraViewModel()
         {
             ApiAnswer = new ObservableCollection<AiAnswer>();
         }
+
 
 
         public async Task GetImageInfo(StorageFile picFromDisc = null)
@@ -161,7 +159,7 @@ namespace UWP.SchoolProject.ViewModels
                 ApiAnswer.Add(answer);
 
             }
-            
+
         }
 
         public async Task SaveImageToDisc()
