@@ -30,44 +30,14 @@ namespace UWP.SchoolProject
             this.InitializeComponent();
         }
 
-        public void ToggleMenu(object sender, RoutedEventArgs e)
-        {
-         //   MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
-        }
-
-        public void BackEvent(object sender, RoutedEventArgs e)
-        {
-            if (MainFrame.CanGoBack)
-            {
-                MainFrame.GoBack();        
-            }
-        }
-
-        
-
-   
-
-        private void Navigation_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-        {
-            On_BackRequested();
-
-        }
+      
 
         private void Navigation_Loaded(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(typeof(HomePage));
         }
 
-        private bool On_BackRequested()
-        {
-            if (this.MainFrame.CanGoBack)
-            {
-                this.MainFrame.GoBack();
-             
-                return true;
-            }
-            return false;
-        }
+      
 
         private void Navigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {

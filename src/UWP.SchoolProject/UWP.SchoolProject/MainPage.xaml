@@ -22,9 +22,8 @@
                         VerticalAlignment="Stretch"
                         IsPaneOpen="False"
                         IsSettingsVisible="False"
-                        BackRequested="Navigation_BackRequested"
                         Loaded="Navigation_Loaded"
-                        
+                        IsBackButtonVisible="Collapsed"                        
                         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home"  Content="Home" Tag="Home"/>

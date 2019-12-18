@@ -101,7 +101,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModel:AiAnswer">
                             <StackPanel>
-                                <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="20" TextWrapping="WrapWholeWords"></TextBlock>
+                                <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="17" TextWrapping="WrapWholeWords"></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
