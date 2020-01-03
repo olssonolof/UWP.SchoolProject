@@ -10,18 +10,18 @@ namespace UWP.SchoolProject.Views
 
     public sealed partial class CameraView : Page
     {
-        private CameraViewModel ViewModel;
+        private CameraViewModel viewModel;
         public CameraView()
         {
             this.InitializeComponent();
-            this.ViewModel = new CameraViewModel();
+            this.viewModel = new CameraViewModel();
         }
 
 
         public async void TakePhoto(object sender, RoutedEventArgs e)
         {
             PhotoButton.IsEnabled = false;
-            var takePicture = ViewModel.GetImageInfo();
+            var takePicture = viewModel.GetImageInfo();
 
             await takePicture;
             PhotoButton.IsEnabled = true;
@@ -30,7 +30,7 @@ namespace UWP.SchoolProject.Views
         private async void OpenPhoto_ClickAsync(object sender, RoutedEventArgs e)
         {
             OpenPhoto.IsEnabled = false;
-            App.Key = App.Key ?? await ViewModel.OpenKeyWindow();
+            App.Key = App.Key ?? await viewModel.OpenKeyWindow();
             if (string.IsNullOrWhiteSpace(App.Key))
             {
                 OpenPhoto.IsEnabled = true;
@@ -45,14 +45,14 @@ namespace UWP.SchoolProject.Views
 
             StorageFile file = await picker.PickSingleFileAsync();
 
-            await ViewModel.GetImageInfo(file);
+            await viewModel.GetImageInfo(file);
             OpenPhoto.IsEnabled = true;
 
         }
 
         private async void SaveImage(object sender, RoutedEventArgs e)
         {
-            await ViewModel.SaveImageToDisc();
+            await viewModel.SaveImageToDisc();
         }
     }
 }
