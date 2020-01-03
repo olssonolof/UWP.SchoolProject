@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using UWP.SchoolProject.Services;
 using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Storage;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWP.SchoolProject.ViewModels
 {
+   
     class CameraViewModel : ViewModelBase
     {
         private ImageSource image;
@@ -96,7 +98,8 @@ namespace UWP.SchoolProject.ViewModels
         public async Task GetImageInfo(StorageFile picFromDisc = null)
         {
 
-            App.Key = App.Key ?? await OpenKeyWindow();
+            await CkeckForKey.CheckIfKeyExist();
+
             if (string.IsNullOrWhiteSpace(App.Key))
             {
                 return;
@@ -179,22 +182,22 @@ namespace UWP.SchoolProject.ViewModels
             await SaveSoftwareBitmapToFile(FileToDisk, outputFile);
         }
 
-        public async Task<string> OpenKeyWindow()
-        {
-            TextBox inputTextBox = new TextBox();
-            inputTextBox.AcceptsReturn = false;
-            inputTextBox.Height = 32;
-            ContentDialog dialog = new ContentDialog();
-            dialog.Content = inputTextBox;
-            dialog.Title = "You need an Api Key for Microsoft Cognitive Services to run this app.";
-            dialog.IsSecondaryButtonEnabled = true;
-            dialog.PrimaryButtonText = "Ok";
-            dialog.SecondaryButtonText = "Cancel";
-            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-                return inputTextBox.Text;
-            else
-                return "";
-        }
+        //public async Task<string> OpenKeyWindow()
+        //{
+        //    TextBox inputTextBox = new TextBox();
+        //    inputTextBox.AcceptsReturn = false;
+        //    inputTextBox.Height = 32;
+        //    ContentDialog dialog = new ContentDialog();
+        //    dialog.Content = inputTextBox;
+        //    dialog.Title = "You need an Api Key for Microsoft Cognitive Services to run this app.";
+        //    dialog.IsSecondaryButtonEnabled = true;
+        //    dialog.PrimaryButtonText = "Ok";
+        //    dialog.SecondaryButtonText = "Cancel";
+        //    if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+        //        return inputTextBox.Text;
+        //    else
+        //        return "";
+        //}
 
         public async Task<byte[]> GetImageAsByteArray(StorageFile photo)
         {

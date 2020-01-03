@@ -62,6 +62,8 @@ namespace UWP.SchoolProject
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            
         }
 
         /// <summary>

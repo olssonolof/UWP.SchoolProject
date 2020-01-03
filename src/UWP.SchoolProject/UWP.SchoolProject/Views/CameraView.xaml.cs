@@ -1,4 +1,5 @@
 ﻿using System;
+using UWP.SchoolProject.Services;
 using UWP.SchoolProject.ViewModels;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -30,7 +31,10 @@ namespace UWP.SchoolProject.Views
         private async void OpenPhoto_ClickAsync(object sender, RoutedEventArgs e)
         {
             OpenPhoto.IsEnabled = false;
-            App.Key = App.Key ?? await viewModel.OpenKeyWindow();
+            // App.Key = App.Key ?? await viewModel.OpenKeyWindow();
+
+            await CkeckForKey.CheckIfKeyExist();
+
             if (string.IsNullOrWhiteSpace(App.Key))
             {
                 OpenPhoto.IsEnabled = true;
