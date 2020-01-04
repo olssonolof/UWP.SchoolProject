@@ -21,7 +21,7 @@
                         PaneDisplayMode="LeftCompact" 
                         VerticalAlignment="Stretch"
                         IsPaneOpen="False"
-                        IsSettingsVisible="False"
+                        IsSettingsVisible="True"
                         Loaded="Navigation_Loaded"
                         IsBackButtonVisible="Collapsed"                        
                         >

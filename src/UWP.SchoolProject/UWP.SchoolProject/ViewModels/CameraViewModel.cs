@@ -182,22 +182,6 @@ namespace UWP.SchoolProject.ViewModels
             await SaveSoftwareBitmapToFile(FileToDisk, outputFile);
         }
 
-        //public async Task<string> OpenKeyWindow()
-        //{
-        //    TextBox inputTextBox = new TextBox();
-        //    inputTextBox.AcceptsReturn = false;
-        //    inputTextBox.Height = 32;
-        //    ContentDialog dialog = new ContentDialog();
-        //    dialog.Content = inputTextBox;
-        //    dialog.Title = "You need an Api Key for Microsoft Cognitive Services to run this app.";
-        //    dialog.IsSecondaryButtonEnabled = true;
-        //    dialog.PrimaryButtonText = "Ok";
-        //    dialog.SecondaryButtonText = "Cancel";
-        //    if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-        //        return inputTextBox.Text;
-        //    else
-        //        return "";
-        //}
 
         public async Task<byte[]> GetImageAsByteArray(StorageFile photo)
         {
