@@ -7,10 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:UWP.SchoolProject.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#000917">
     <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="BorderBrush" Value="#FF7E7E7E"/>
+            <Setter Property="Background" Value="#000917"/>
+            <Setter Property="Opacity" Value="0.9"/>
         </Style>
     </Page.Resources>
 
@@ -24,6 +26,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Image Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="2" 
+               Grid.RowSpan="2" 
+               Stretch="UniformToFill"
+               Source="ms-appx:///Assets//AI-Workflows-Work-Silos-2400.jpg"
+               Opacity="0.5"/>
         <StackPanel Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
