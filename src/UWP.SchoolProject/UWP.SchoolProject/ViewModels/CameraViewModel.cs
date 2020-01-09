@@ -11,17 +11,32 @@ using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWP.SchoolProject.ViewModels
 {
-   
+
     class CameraViewModel : ViewModelBase
     {
         private ImageSource image;
 
         public bool imageExist;
+
+        private Visibility animationVisibility = Visibility.Collapsed;
+
+        public Visibility AnimationVisibility
+        {
+            get => animationVisibility;
+            set
+            {
+                animationVisibility = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
 
         public bool ImageExist
         {
@@ -105,6 +120,8 @@ namespace UWP.SchoolProject.ViewModels
             }
             ImageFile = null;
 
+            AnimationVisibility = Visibility.Visible;
+
             if (picFromDisc == null)
             {
                 CameraCaptureUI captureUI = new CameraCaptureUI();
@@ -122,6 +139,8 @@ namespace UWP.SchoolProject.ViewModels
             if (ImageFile == null)
             {
                 // User cancelled photo capture
+                AnimationVisibility = Visibility.Collapsed;
+
                 return;
             }
             StorageFolder destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("ProfilePhotoFolder",
@@ -161,6 +180,9 @@ namespace UWP.SchoolProject.ViewModels
                 ApiAnswer.Add(answer);
 
             }
+
+            AnimationVisibility = Visibility.Collapsed;
+
 
         }
 
