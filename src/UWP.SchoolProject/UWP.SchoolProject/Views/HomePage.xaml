@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -12,5 +14,17 @@
                Stretch="UniformToFill"
                Opacity="0.6"/>
 
+        <Border 
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="200"
+                Height="200"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="40">
+            <controls:AnimatedVisualPlayer>
+                <lottie:LottieVisualSource UriSource="ms-appx:///Assets//Animations//6741-brain.json"/>
+            </controls:AnimatedVisualPlayer>
+        </Border>
     </Grid>
 </Page>
