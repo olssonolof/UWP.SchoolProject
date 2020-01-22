@@ -63,7 +63,7 @@ namespace UWP.SchoolProject
                 Window.Current.Activate();
             }
 
-            
+
         }
 
         /// <summary>

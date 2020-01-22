@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -18,10 +15,10 @@ namespace UWP.SchoolProject.Services
 
                 if (string.IsNullOrWhiteSpace(key))
                 {
-                   key = await SaveKeyToFile.WriteToFileAsync(await OpenKeyWindow());
+                    key = await SaveKeyToFile.WriteToFileAsync(await OpenKeyWindow());
                 }
                 App.Key = key;
-            }        
+            }
         }
 
 

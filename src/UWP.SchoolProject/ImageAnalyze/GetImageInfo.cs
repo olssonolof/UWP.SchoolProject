@@ -42,12 +42,19 @@ namespace ImageAnalyze
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
                 response = await client.PostAsync("/vision/v1.0/analyze?visualFeatures=description&details=landmarks", content);
-                string stringResponse = await response.Content.ReadAsStringAsync();
-                contentString = JsonConvert.DeserializeObject<ImageInfo>(await response.Content.ReadAsStringAsync());
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    contentString = JsonConvert.DeserializeObject<ImageInfo>(await response.Content.ReadAsStringAsync());
+                    return contentString;
+                }
+
+                throw new Exception(response.ReasonPhrase);
 
             }
 
-            return contentString;
+
 
         }
 

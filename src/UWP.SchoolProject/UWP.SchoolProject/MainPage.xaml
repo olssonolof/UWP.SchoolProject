@@ -38,7 +38,7 @@
                         IsSettingsVisible="True"
                         Loaded="Navigation_Loaded"
                         IsBackButtonVisible="Collapsed"    
-                     Opacity="30"
+                        Opacity="30"
                         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home"  Content="Home" Tag="Home"/>

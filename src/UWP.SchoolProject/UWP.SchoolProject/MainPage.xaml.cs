@@ -25,7 +25,11 @@ namespace UWP.SchoolProject
 
         private void Navigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if ((Navigation.SelectedItem is NavigationViewItem item) && Navigation != null)
+            if (args.IsSettingsSelected)
+            {
+                MainFrame.Navigate(typeof(Settings));
+            }
+            else if ((Navigation.SelectedItem is NavigationViewItem item) && Navigation != null)
             {
 
                 switch (item.Tag)
@@ -38,8 +42,11 @@ namespace UWP.SchoolProject
                         MainFrame.Navigate(typeof(CameraView));
                         break;
 
+
                 }
             }
+
+
             Navigation.IsBackEnabled = true;
         }
     }

@@ -124,6 +124,7 @@ namespace UWP.SchoolProject.ViewModels
 
             if (picFromDisc == null)
             {
+                Description = string.Empty;
                 CameraCaptureUI captureUI = new CameraCaptureUI();
                 captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
                 captureUI.PhotoSettings.AllowCropping = false;
