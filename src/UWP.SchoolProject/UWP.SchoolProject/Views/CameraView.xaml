@@ -121,7 +121,8 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModel:AiAnswer">
                             <StackPanel>
-                                <userControl:AnswerUserControl Answer="{x:Bind}"/>
+                                <userControl:AnswerUserControl Answer="{x:Bind}"
+                                                               Margin="10"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
