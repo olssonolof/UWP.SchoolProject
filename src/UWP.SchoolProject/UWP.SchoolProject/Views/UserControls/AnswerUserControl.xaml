@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="UWP.SchoolProject.Views.UserControls.AnswerUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP.SchoolProject.Views.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:UWP.SchoolProject.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <converter:ItemConverter x:Key="stringFormating"/>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Text="{x:Bind Answer.Description, 
+            Mode=OneWay, 
+            Converter={StaticResource stringFormating},ConverterParameter='Description'}"
+                   FontSize="17" 
+                   TextWrapping="WrapWholeWords"/>
+        <TextBlock Text="{x:Bind Answer.Confidence, 
+            Mode=OneWay, 
+            Converter={StaticResource stringFormating},ConverterParameter='Confidence'}"
+                   FontSize="17" 
+                   TextWrapping="WrapWholeWords"/>
+    </StackPanel>
+
+</UserControl>

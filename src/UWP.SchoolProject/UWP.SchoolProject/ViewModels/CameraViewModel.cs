@@ -175,8 +175,8 @@ namespace UWP.SchoolProject.ViewModels
             {
                 var answer = new AiAnswer
                 {
-                    Description =
-                    ($"Description: {item.Text} \nConfidence: {item.Confidence}")
+                    Description = item.Text,
+                    Confidence = item.Confidence
                 };
                 ApiAnswer.Add(answer);
 
@@ -275,6 +275,22 @@ namespace UWP.SchoolProject.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        private string confidence;
+
+        public string Confidence
+        {
+            get => confidence;
+            set
+            {
+                confidence = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

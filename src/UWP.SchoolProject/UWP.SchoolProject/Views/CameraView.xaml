@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
+    xmlns:userControl="using:UWP.SchoolProject.Views.UserControls"
     Background="#000917">
     <Page.Resources>
         <Style TargetType="Button">
@@ -120,7 +121,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModel:AiAnswer">
                             <StackPanel>
-                                <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="17" TextWrapping="WrapWholeWords"></TextBlock>
+                                <userControl:AnswerUserControl Answer="{x:Bind}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
